@@ -3,6 +3,8 @@ const win = "WIN!";
 const lose = "Lost :(";
 const tie = "Tie!";
 const notAChoice = "Please enter a valid response - rock, paper, or scissors."
+var playerScore = 0;
+var computerScore = 0 
 
 for (let i = 0; i < 5; i++) {
     function playRound(playerSelection, computerSelection) {
@@ -12,8 +14,10 @@ for (let i = 0; i < 5; i++) {
             console.log(notAChoice); 
         } else {
             if (playerSelection === "scissors" && computerSelection === choices[1] || playerSelection === "rock" && computerSelection === choices[2] || playerSelection == "paper" && computerSelection === choices[0]) {
+                playerScore = playerScore++;
                 console.log(win);
-            } else if (playerSelection === "scissors" && computerSelection === choices[0] || playerSelection === "rock" && computerSelection === choices[1] || playerSelection === "paper" && computerSelection === choices[2]) {
+            } else {
+                computerScore = computerScore++;
                 console.log(lose);
             }
         }
@@ -21,6 +25,8 @@ for (let i = 0; i < 5; i++) {
     let playerSelection = prompt("Enter rock, paper, or scissors").toLowerCase();
     let computerSelection = choices[Math.floor(Math.random() * choices.length)];
     console.log(playRound(playerSelection, computerSelection))
+
+
 }
 
 
