@@ -1,33 +1,51 @@
 const choices = ["Rock", "Paper", "Scissors"];
 const win = "WIN!";
 const lose = "Lost :(";
-const tie = "Tie!";
-// const notAChoice = "Please enter a valid response - rock, paper, or scissors."
 var playerScore = 0;
 var computerScore = 0 
+const newDiv = document.createElement('div');
 
-
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection) {
+    let computerSelection = choices[Math.floor(Math.random() * choices.length)];
     if (playerSelection === computerSelection) {
-        console.log(tie); 
-    //} else if (playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors") { 
-      //  console.log(notAChoice); 
+        const newContent = document.createTextNode("Tie!"); 
+        newDiv.appendChild(newContent);
+        const currentDiv = document.getElementById("results"); 
+        document.body.insertBefore(newDiv, currentDiv);
     } else {
-        if (playerSelection === "scissors" && computerSelection === choices[1] || playerSelection === "rock" && computerSelection === choices[2] || playerSelection == "paper" && computerSelection === choices[0]) {
-            playerScore = playerScore++;
-            console.log(win);
+        if (playerSelection === "Scissors" && computerSelection === choices[1] || playerSelection === "Rock" && computerSelection === choices[2] || playerSelection == "Paper" && computerSelection === choices[0]) {
+            playerScore+=1;
+            const newContent = document.createTextNode("WIN!"); 
+            newDiv.appendChild(newContent); 
+            const currentDiv = document.getElementById("results"); 
+            document.body.insertBefore(newDiv, currentDiv);
         } else {
-            computerScore = computerScore++;
-            console.log(lose);
+            computerScore+=1;
+            const newContent = document.createTextNode("Lose :(");
+            newDiv.appendChild(newContent); 
+            const currentDiv = document.getElementById("results"); 
+            document.body.insertBefore(newDiv, currentDiv); 
         }
     }
-
-    let playerSelection = prompt("Enter rock, paper, or scissors").toLowerCase();
-    let computerSelection = choices[Math.floor(Math.random() * choices.length)];
-    console.log(playRound(playerSelection, computerSelection))
-
-
 }
 
+const rBtn = document.querySelector('#rock'); 
+const pBtn = document.querySelector('#paper'); 
+const sBtn = document.querySelector('#scissors'); 
+
+rBtn.addEventListener('click', function() {
+    let playerSelection = 'Rock'
+    playRound(playerSelection)
+})
+
+pBtn.addEventListener('click', function() {
+    let playerSelection = 'Paper'
+    playRound(playerSelection)
+})
+
+sBtn.addEventListener('click', function() {
+    let playerSelection = 'Scissors'
+    playRound(playerSelection)
+})
 
 
