@@ -4,6 +4,7 @@ const lose = "Lost :(";
 var playerScore = 0;
 var computerScore = 0 
 const newDiv = document.createElement('div');
+newDiv.setAttribute("class", "roundResults");
 
 function playRound(playerSelection) {
     let computerSelection = choices[Math.floor(Math.random() * choices.length)];
@@ -34,18 +35,18 @@ const pBtn = document.querySelector('#paper');
 const sBtn = document.querySelector('#scissors'); 
 
 rBtn.addEventListener('click', function() {
-    let playerSelection = 'Rock'
-    playRound(playerSelection)
+    let playerSelection = 'Rock';
+    playRound(playerSelection);
 })
 
 pBtn.addEventListener('click', function() {
-    let playerSelection = 'Paper'
-    playRound(playerSelection)
+    let playerSelection = 'Paper';
+    playRound(playerSelection);
 })
 
 sBtn.addEventListener('click', function() {
-    let playerSelection = 'Scissors'
-    playRound(playerSelection)
+    let playerSelection = 'Scissors'; 
+    playRound(playerSelection);
 })
 
 
