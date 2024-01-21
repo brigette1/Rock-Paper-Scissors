@@ -1,52 +1,60 @@
-const choices = ["Rock", "Paper", "Scissors"];
-const win = "WIN!";
-const lose = "Lost :(";
-var playerScore = 0;
-var computerScore = 0 
-const newDiv = document.createElement('div');
-newDiv.setAttribute("class", "roundResults");
+const buttons = document.querySelectorAll('.button');
+const rBtn = document.querySelector('#rock');
+const pBtn = document.querySelector('#paper'); 
+const sBtn = document.querySelector('#scissors');
+const resetButton = document.querySelector('#resetButton')
 
+const choices = ["Rock", "Paper", "Scissors"];
+let playerScore = 0;
+let computerScore = 0;
+
+//Play a round of rps 
 function playRound(playerSelection) {
-    let computerSelection = choices[Math.floor(Math.random() * choices.length)];
+    computerSelection = choices[Math.floor(Math.random() * choices.length)]
     if (playerSelection === computerSelection) {
-        const newContent = document.createTextNode("Tie!"); 
-        newDiv.appendChild(newContent);
-        const currentDiv = document.getElementById("results"); 
-        document.body.insertBefore(newDiv, currentDiv);
+        document.getElementById('roundResultText').textContent = "TIE"
     } else {
-        if (playerSelection === "Scissors" && computerSelection === choices[1] || playerSelection === "Rock" && computerSelection === choices[2] || playerSelection == "Paper" && computerSelection === choices[0]) {
-            playerScore+=1;
-            const newContent = document.createTextNode("WIN!"); 
-            newDiv.appendChild(newContent); 
-            const currentDiv = document.getElementById("results"); 
-            document.body.insertBefore(newDiv, currentDiv);
-        } else {
-            computerScore+=1;
-            const newContent = document.createTextNode("Lose :(");
-            newDiv.appendChild(newContent); 
-            const currentDiv = document.getElementById("results"); 
-            document.body.insertBefore(newDiv, currentDiv); 
+        if ((playerSelection === "Scissors" && computerSelection === choices[1]) || 
+        (playerSelection === "Rock" && computerSelection === choices[2]) || 
+        (playerSelection == "Paper" && computerSelection === choices[0])) {
+            document.getElementById('roundResultText').textContent = "You win this round!"
+            playerScore += 1
+            document.getElementById('playerScore').textContent = "PLAYER SCORE: " + playerScore;
+        } else if ((computerSelection === choices[0] && playerSelection === "Scissors") ||
+        (computerSelection === choices[1] && playerSelection === "Rock") || 
+        (computerSelection === choices[2] && playerSelection === "Paper")) {
+            document.getElementById('roundResultText').textContent = "You lost this round..."
+            computerScore += 1 
+            document.getElementById('computerScore').textContent = "COMPUTER SCORE: " + computerScore;
         }
     }
 }
 
-const rBtn = document.querySelector('#rock'); 
-const pBtn = document.querySelector('#paper'); 
-const sBtn = document.querySelector('#scissors'); 
-
-rBtn.addEventListener('click', function() {
-    let playerSelection = 'Rock';
+//Begin round by pressing rock, paper, or scissors button
+//Player wins at 5 points, loses if computer gets 5 points
+buttons.forEach(button => button.addEventListener('click', (event) => {
+    const playerSelection = button.textContent;
     playRound(playerSelection);
-})
 
-pBtn.addEventListener('click', function() {
-    let playerSelection = 'Paper';
-    playRound(playerSelection);
-})
+    if (playerScore === 5) {
+        document.getElementById('gameResult').textContent = "GAME WON!"
+        document.getElementById('roundResultText').textContent = ""
+    } else if (computerScore === 5) {
+        document.getElementById('gameResult').textContent = "GAME LOST..."
+        document.getElementById('roundResultText').textContent = ""
+    }
+})) 
 
-sBtn.addEventListener('click', function() {
-    let playerSelection = 'Scissors'; 
-    playRound(playerSelection);
+
+//reset score for new game
+
+resetButton.addEventListener('click', (event) => {
+    playerScore = 0;
+    computerScore = 0; 
+    document.getElementById('gameResult').textContent = ""
+    document.getElementById('roundResultText').textContent = ""
+    document.getElementById('playerScore').textContent = "PLAYER SCORE: 0";
+    document.getElementById('computerScore').textContent = "COMPUTER SCORE: 0";
 })
 
 
